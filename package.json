@@ -1,0 +1,26 @@
+{
+  "name": "roland-garros",
+  "version": "0.0.0",
+  "description": "Let's watch a Roland-Garros live",
+  "main": "index.js",
+  "bin": {
+    "roland-garros": "./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattp94/roland-garros.git"
+  },
+  "author": "Matthieu Puibaraud <matthieu.puibaraud@isep.fr> (https://github.com/mattp94)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mattp94/roland-garros/issues"
+  },
+  "homepage": "https://github.com/mattp94/roland-garros#readme",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "cheerio": "^1.0.0-rc.3",
+    "enquirer": "^2.3.0",
+    "got": "^9.6.0",
+    "open": "^6.3.0"
+  }
+}
