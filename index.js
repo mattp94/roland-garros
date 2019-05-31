@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
+const clipboardy = require('clipboardy')
 const enquirer = require('enquirer')
 const open = require('open')
-const { bold, green, red } = require('chalk')
+const { bold, green, magenta, red } = require('chalk')
 const { symbols } = require('ansi-colors')
 
 const getId = require('./lib/id')
@@ -14,15 +15,21 @@ const main = async () => {
     const lives = await getLives()
 
     if (!lives.length) {
-        throw new Error('no live available')
+        throw new Error('Aucun direct disponible.')
     }
 
-    const { title } = await enquirer.prompt([
+    const { title, app } = await enquirer.prompt([
         {
             type: 'autocomplete',
             name: 'title',
             message: 'Which live do you wanna watch?',
             choices: lives.map(live => live.title)
+        },
+        {
+            type: 'autocomplete',
+            name: 'app',
+            message: 'Which app do you wanna use?',
+            choices: ['QuickTime Player', 'Safari', 'VLC', 'Clipboard']
         }
     ])
 
@@ -32,9 +39,16 @@ const main = async () => {
     const token = await getToken(id)
     const stream = await getStream(token)
 
-    console.log(green(symbols.check), bold('Stream:'), stream)
-
-    await open(stream, { app: 'safari' })
+    if (app === 'Clipboard') {
+        await clipboardy.write(stream)
+        
+        console.log(
+            green(symbols.check),
+            bold('It has been copied to the Clipboard!')
+        )
+    } else {
+        await open(stream, { app })
+    }
 }
 
 main().catch(err => {
@@ -42,7 +56,7 @@ main().catch(err => {
         console.error(
             red(symbols.cross),
             bold('An error occurred:'),
-            err.message
+            magenta(err.message)
         )
     }
 })

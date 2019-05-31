@@ -5,7 +5,6 @@
 ## Requirements
 
 * [Node.js](https://nodejs.org/)
-* [Safari](https://www.apple.com/safari/)
 
 ## Getting started
 
