@@ -13,6 +13,10 @@ const getToken = require('./lib/token')
 const main = async () => {
     const lives = await getLives()
 
+    if (!lives.length) {
+        throw new Error('no live available')
+    }
+
     const { title } = await enquirer.prompt([
         {
             type: 'autocomplete',
@@ -34,10 +38,11 @@ const main = async () => {
 }
 
 main().catch(err => {
-    if (err instanceof Error)
+    if (err instanceof Error) {
         console.error(
             red(symbols.cross),
             bold('An error occurred:'),
             err.message
         )
+    }
 })
