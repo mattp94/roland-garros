@@ -1,6 +1,6 @@
 {
   "name": "roland-garros",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Let's watch a Roland-Garros live",
   "main": "index.js",
   "bin": {
