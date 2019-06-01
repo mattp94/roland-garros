@@ -14,10 +14,6 @@ const getToken = require('./lib/token');
 const main = async () => {
     const lives = await getLives();
 
-    if (!lives.length) {
-        throw new Error('Aucun direct disponible.');
-    }
-
     const { title, app } = await enquirer.prompt([
         {
             type: 'autocomplete',
