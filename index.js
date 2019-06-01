@@ -58,5 +58,7 @@ main().catch(err => {
             bold('An error occurred:'),
             magenta(err.message),
         );
+
+        process.exit(1);
     }
 });
