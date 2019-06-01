@@ -4,7 +4,11 @@
   "description": "Let's watch a Roland-Garros live",
   "main": "index.js",
   "bin": {
-    "roland-garros": "./index.js"
+    "roland-garros": "index.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "prettify": "prettier --write '**/*.js'"
   },
   "repository": {
     "type": "git",
@@ -23,5 +27,8 @@
     "enquirer": "^2.3.0",
     "got": "^9.6.0",
     "open": "^6.3.0"
+  },
+  "devDependencies": {
+    "prettier": "^1.17.1"
   }
 }
