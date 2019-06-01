@@ -47,7 +47,7 @@ const main = async () => {
             bold('It has been copied to the Clipboard!'),
         );
     } else {
-        await open(stream, { app });
+        await open(stream, { app: app.toLowerCase() });
     }
 };
 
