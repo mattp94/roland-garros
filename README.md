@@ -17,5 +17,7 @@ npm install --global https://github.com/mattp94/roland-garros.git
 Then, run this:
 
 ```bash
-roland-garros
+roland-garros [--reset]
 ```
+
+More information with `--help` option.
