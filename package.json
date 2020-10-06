@@ -8,7 +8,8 @@
   },
   "scripts": {
     "start": "node index.js",
-    "prettify": "prettier --write '**/*.js'"
+    "prettify": "prettier --write '**/*.js'",
+    "preuninstall": "./scripts/reset.js"
   },
   "repository": {
     "type": "git",
@@ -24,9 +25,11 @@
     "chalk": "^4.1.0",
     "cheerio": "^1.0.0-rc.3",
     "clipboardy": "^2.3.0",
+    "conf": "^7.1.2",
     "enquirer": "^2.3.6",
     "got": "^11.7.0",
-    "open": "^7.3.0"
+    "open": "^7.3.0",
+    "yargs": "^16.0.3"
   },
   "devDependencies": {
     "prettier": "^2.1.2"

@@ -7,15 +7,21 @@ const { bold, green, magenta, red } = require('chalk');
 const { execFileSync } = require('child_process');
 const { symbols } = require('ansi-colors');
 
+const config = require('./lib/config');
 const getId = require('./lib/id');
 const getLives = require('./lib/live');
 const getStream = require('./lib/stream');
 const getToken = require('./lib/token');
+const options = require('./lib/options');
 
 const main = async () => {
     const lives = await getLives();
 
-    const { title, app } = await enquirer.prompt([
+    if (options.reset) {
+        config.clear();
+    }
+
+    const { title, app, shouldRemember } = await enquirer.prompt([
         {
             type: 'autocomplete',
             name: 'title',
@@ -27,26 +33,38 @@ const main = async () => {
             name: 'app',
             message: 'Which app do you wanna use?',
             choices: ['QuickTime Player', 'Safari', 'VLC', 'IINA', 'Clipboard'],
+            skip: config.has('app'),
+        },
+        {
+            type: 'confirm',
+            name: 'shouldRemember',
+            message: 'Do you wanna remember this app?',
+            skip: config.has('app'),
         },
     ]);
 
+    const target = app || config.get('app');
     const { url } = lives.find((live) => live.title === title);
 
     const id = await getId(url);
     const token = await getToken(id);
     const stream = await getStream(token);
 
-    if (app === 'Clipboard') {
+    if (target === 'Clipboard') {
         await clipboardy.write(stream);
 
         console.log(
             green(symbols.check),
             bold('It has been copied to the Clipboard!'),
         );
-    } else if (app === 'IINA') {
+    } else if (target === 'IINA') {
         execFileSync('iina', [stream]);
     } else {
-        await open(stream, { app: app.toLowerCase(), url: true });
+        await open(stream, { app: target.toLowerCase(), url: true });
+    }
+
+    if (shouldRemember) {
+        config.set({ app: target });
     }
 };
 
