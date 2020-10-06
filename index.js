@@ -4,6 +4,7 @@ const clipboardy = require('clipboardy');
 const enquirer = require('enquirer');
 const open = require('open');
 const { bold, green, magenta, red } = require('chalk');
+const { execFileSync } = require('child_process');
 const { symbols } = require('ansi-colors');
 
 const getId = require('./lib/id');
@@ -25,7 +26,7 @@ const main = async () => {
             type: 'autocomplete',
             name: 'app',
             message: 'Which app do you wanna use?',
-            choices: ['QuickTime Player', 'Safari', 'VLC', 'Clipboard'],
+            choices: ['QuickTime Player', 'Safari', 'VLC', 'IINA', 'Clipboard'],
         },
     ]);
 
@@ -42,6 +43,8 @@ const main = async () => {
             green(symbols.check),
             bold('It has been copied to the Clipboard!'),
         );
+    } else if (app === 'IINA') {
+        execFileSync('iina', [stream]);
     } else {
         await open(stream, { app: app.toLowerCase(), url: true });
     }
