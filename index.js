@@ -19,7 +19,7 @@ const main = async () => {
             type: 'autocomplete',
             name: 'title',
             message: 'Which live do you wanna watch?',
-            choices: lives.map(live => live.title),
+            choices: lives.map((live) => live.title),
         },
         {
             type: 'autocomplete',
@@ -29,7 +29,7 @@ const main = async () => {
         },
     ]);
 
-    const { url } = lives.find(live => live.title === title);
+    const { url } = lives.find((live) => live.title === title);
 
     const id = await getId(url);
     const token = await getToken(id);
@@ -43,11 +43,11 @@ const main = async () => {
             bold('It has been copied to the Clipboard!'),
         );
     } else {
-        await open(stream, { app: app.toLowerCase() });
+        await open(stream, { app: app.toLowerCase(), url: true });
     }
 };
 
-main().catch(err => {
+main().catch((err) => {
     if (err instanceof Error) {
         console.error(
             red(symbols.cross),

@@ -21,14 +21,14 @@
   },
   "homepage": "https://github.com/mattp94/roland-garros#readme",
   "dependencies": {
-    "chalk": "^2.4.2",
+    "chalk": "^4.1.0",
     "cheerio": "^1.0.0-rc.3",
-    "clipboardy": "^2.0.0",
-    "enquirer": "^2.3.0",
-    "got": "^9.6.0",
-    "open": "^6.3.0"
+    "clipboardy": "^2.3.0",
+    "enquirer": "^2.3.6",
+    "got": "^11.7.0",
+    "open": "^7.3.0"
   },
   "devDependencies": {
-    "prettier": "^1.17.1"
+    "prettier": "^2.1.2"
   }
 }
