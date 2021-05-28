@@ -4,7 +4,6 @@ const clipboardy = require("clipboardy");
 const enquirer = require("enquirer");
 const open = require("open");
 const { bold, green, magenta, red } = require("chalk");
-const { execFileSync } = require("child_process");
 const { symbols } = require("ansi-colors");
 
 const config = require("./lib/config");
@@ -57,8 +56,6 @@ const main = async () => {
       green(symbols.check),
       bold("It has been copied to the Clipboard!")
     );
-  } else if (target === "IINA") {
-    execFileSync("iina", [stream]);
   } else {
     await open(stream, { app: { name: target.toLowerCase() } });
   }
