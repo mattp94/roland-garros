@@ -60,7 +60,7 @@ const main = async () => {
     } else if (target === 'IINA') {
         execFileSync('iina', [stream]);
     } else {
-        await open(stream, { app: target.toLowerCase(), url: true });
+        await open(stream, { app: { name: target.toLowerCase() } });
     }
 
     if (shouldRemember) {
