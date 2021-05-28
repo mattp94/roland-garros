@@ -32,7 +32,7 @@ const main = async () => {
       type: "autocomplete",
       name: "app",
       message: "Which app do you wanna use?",
-      choices: ["QuickTime Player", "Safari", "VLC", "IINA", "Clipboard"],
+      choices: ["QuickTime Player", "VLC", "IINA", "Clipboard"],
       skip: config.has("app"),
     },
     {
