@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-const config = require('../lib/config');
+const config = require("../lib/config");
 
 config.clear();
