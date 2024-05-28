@@ -10,7 +10,7 @@ const config = require("./lib/config");
 const getId = require("./lib/id");
 const getLives = require("./lib/live");
 const getStream = require("./lib/stream");
-const getToken = require("./lib/token");
+const getVideo = require("./lib/video");
 const options = require("./lib/options");
 
 const main = async () => {
@@ -46,8 +46,8 @@ const main = async () => {
   const { url } = lives.find((live) => live.title === title);
 
   const id = await getId(url);
-  const token = await getToken(id);
-  const stream = await getStream(token);
+  const video = await getVideo(id);
+  const stream = await getStream(video);
 
   if (target === "Clipboard") {
     await clipboardy.write(stream);
