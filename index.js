@@ -1,20 +1,22 @@
-#!/usr/bin/env node
+#!/usr/bin/env node --no-warnings
 
-const clipboardy = require("clipboardy");
-const enquirer = require("enquirer");
-const open = require("open");
-const { bold, green, magenta, red } = require("chalk");
-const { symbols } = require("ansi-colors");
+import ansi from "ansi-colors";
+import chalk from "chalk";
+import clipboardy from "clipboardy";
+import enquirer from "enquirer";
+import open from "open";
 
-const config = require("./lib/config");
-const getId = require("./lib/id");
-const getLives = require("./lib/live");
-const getStream = require("./lib/stream");
-const getVideo = require("./lib/video");
-const options = require("./lib/options");
+import {
+  fetchId,
+  fetchLives,
+  fetchStream,
+  fetchVideo,
+} from "./lib/fetchers.js";
+import config from "./lib/config.js";
+import options from "./lib/options.js";
 
-const main = async () => {
-  const lives = await getLives();
+try {
+  const lives = await fetchLives();
 
   if (options.reset) {
     config.clear();
@@ -45,34 +47,32 @@ const main = async () => {
   const target = app || config.get("app");
   const { url } = lives.find((live) => live.title === title);
 
-  const id = await getId(url);
-  const video = await getVideo(id);
-  const stream = await getStream(video);
+  const id = await fetchId(url);
+  const video = await fetchVideo(id);
+  const stream = await fetchStream(video);
 
   if (target === "Clipboard") {
     await clipboardy.write(stream);
 
     console.log(
-      green(symbols.check),
-      bold("It has been copied to the Clipboard!")
+      chalk.green(ansi.symbols.check),
+      chalk.bold("It has been copied to the Clipboard!"),
     );
   } else {
     await open(stream, { app: { name: target.toLowerCase() } });
   }
 
   if (shouldRemember) {
-    config.set({ app: target });
+    config.set("app", target);
   }
-};
-
-main().catch((err) => {
+} catch (err) {
   if (err instanceof Error) {
     console.error(
-      red(symbols.cross),
-      bold("An error occurred:"),
-      magenta(err.message)
+      chalk.red(ansi.symbols.cross),
+      chalk.bold("An error occurred:"),
+      chalk.magenta(err.message),
     );
 
     process.exit(1);
   }
-});
+}

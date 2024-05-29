@@ -4,17 +4,17 @@
 
 ## Requirements
 
-* [Node.js](https://nodejs.org/)
+- [Node.js](https://nodejs.org/)
 
 ## Getting started
 
-Install it with:
+Installation:
 
 ```bash
 npm install --global https://github.com/mattp94/roland-garros.git
 ```
 
-Then, run this:
+Usage:
 
 ```bash
 roland-garros [--reset]

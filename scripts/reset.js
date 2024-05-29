@@ -1,5 +1,5 @@
-#!/usr/bin/env node
+#!/usr/bin/env node --no-warnings
 
-const config = require("../lib/config");
+import config from "../lib/config.js";
 
 config.clear();
