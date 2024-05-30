@@ -8,16 +8,24 @@
 
 ## Getting started
 
-Installation:
+### Installation
 
 ```bash
 npm install --global https://github.com/mattp94/roland-garros.git
 ```
 
-Usage:
+### Usage
+
+Select and watch a live:
 
 ```bash
-roland-garros [--reset]
+roland-garros
+```
+
+Watch a specific video:
+
+```bash
+roland-garros --url https://www.france.tv/sport/tennis/roland-garros/1234-superman-vs-batman.html
 ```
 
 More information with `--help` option.

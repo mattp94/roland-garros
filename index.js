@@ -6,29 +6,22 @@ import clipboardy from "clipboardy";
 import enquirer from "enquirer";
 import open from "open";
 
-import {
-  fetchId,
-  fetchLives,
-  fetchStream,
-  fetchVideo,
-} from "./lib/fetchers.js";
+import { fetchId, fetchStream, fetchVideo } from "./lib/fetchers.js";
+import { selectUrl } from "./lib/selectors.js";
 import config from "./lib/config.js";
 import options from "./lib/options.js";
 
 try {
-  const lives = await fetchLives();
-
   if (options.reset) {
     config.clear();
   }
 
-  const { title, app, shouldRemember } = await enquirer.prompt([
-    {
-      type: "autocomplete",
-      name: "title",
-      message: "Which live do you wanna watch?",
-      choices: lives.map((live) => live.title),
-    },
+  const url = options.url || (await selectUrl());
+  const id = await fetchId(url);
+  const video = await fetchVideo(id);
+  const stream = await fetchStream(video);
+
+  const { app, shouldRemember } = await enquirer.prompt([
     {
       type: "autocomplete",
       name: "app",
@@ -45,11 +38,6 @@ try {
   ]);
 
   const target = app || config.get("app");
-  const { url } = lives.find((live) => live.title === title);
-
-  const id = await fetchId(url);
-  const video = await fetchVideo(id);
-  const stream = await fetchStream(video);
 
   if (target === "Clipboard") {
     await clipboardy.write(stream);
