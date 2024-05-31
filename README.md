@@ -28,4 +28,10 @@ Watch a specific video:
 roland-garros --url https://www.france.tv/sport/tennis/roland-garros/1234-superman-vs-batman.html
 ```
 
+Open in a specific application:
+
+```bash
+roland-garros --app iina
+```
+
 More information with `--help` option.

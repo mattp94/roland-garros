@@ -3,11 +3,10 @@
 import ansi from "ansi-colors";
 import chalk from "chalk";
 import clipboardy from "clipboardy";
-import enquirer from "enquirer";
 import open from "open";
 
 import { fetchId, fetchStream, fetchVideo } from "./lib/fetchers.js";
-import { selectUrl } from "./lib/selectors.js";
+import { selectApp, selectUrl } from "./lib/selectors.js";
 import config from "./lib/config.js";
 import options from "./lib/options.js";
 
@@ -17,41 +16,21 @@ try {
   }
 
   const url = options.url || (await selectUrl());
+  const app = options.app || (await selectApp());
+
   const id = await fetchId(url);
   const video = await fetchVideo(id);
   const stream = await fetchStream(video);
 
-  const { app, shouldRemember } = await enquirer.prompt([
-    {
-      type: "autocomplete",
-      name: "app",
-      message: "Which app do you wanna use?",
-      choices: ["QuickTime Player", "VLC", "IINA", "Clipboard"],
-      skip: config.has("app"),
-    },
-    {
-      type: "confirm",
-      name: "shouldRemember",
-      message: "Do you wanna remember this app?",
-      skip: config.has("app"),
-    },
-  ]);
-
-  const target = app || config.get("app");
-
-  if (target === "Clipboard") {
+  if (/^clipboard$/i.test(app)) {
     await clipboardy.write(stream);
 
     console.log(
       chalk.green(ansi.symbols.check),
-      chalk.bold("It has been copied to the Clipboard!"),
+      chalk.bold("It has been copied to the clipboard!"),
     );
   } else {
-    await open(stream, { app: { name: target.toLowerCase() } });
-  }
-
-  if (shouldRemember) {
-    config.set("app", target);
+    await open(stream, { app: { name: app.toLowerCase() } });
   }
 } catch (err) {
   if (err instanceof Error) {
