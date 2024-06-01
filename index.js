@@ -30,7 +30,10 @@ try {
       chalk.bold("It has been copied to the clipboard!"),
     );
   } else {
-    await open(stream, { app: { name: app.toLowerCase() } });
+    await open(stream, {
+      app: { name: app.toLowerCase() },
+      wait: options.wait,
+    });
   }
 } catch (err) {
   if (err instanceof Error) {
