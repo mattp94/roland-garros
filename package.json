@@ -1,6 +1,6 @@
 {
   "name": "roland-garros",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "Let's watch a Roland-Garros live",
   "type": "module",
   "bin": {
