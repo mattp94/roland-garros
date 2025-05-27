@@ -5,7 +5,9 @@ import chalk from "chalk";
 import clipboardy from "clipboardy";
 import open from "open";
 
-import { fetchId, fetchStream, fetchVideo } from "./lib/fetchers.js";
+import { fetchId } from "./lib/fetchers/fetch-id.js";
+import { fetchStream } from "./lib/fetchers/fetch-stream.js";
+import { fetchVideo } from "./lib/fetchers/fetch-video.js";
 import { selectApp, selectUrl } from "./lib/selectors.js";
 import config from "./lib/config.js";
 import options from "./lib/options.js";

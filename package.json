@@ -31,7 +31,6 @@
     "conf": "^12.0.0",
     "enquirer": "^2.4.1",
     "got": "^14.3.0",
-    "jsdom": "^24.1.0",
     "open": "^10.1.0"
   },
   "devDependencies": {
