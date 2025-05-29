@@ -38,6 +38,10 @@ try {
     });
   }
 } catch (err) {
+  if (options.debug) {
+    throw err;
+  }
+
   if (err instanceof Error) {
     console.error(
       chalk.red(ansi.symbols.cross),
